@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento HTML -->
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura que la página sea responsive -->
+    <title>Sistema de Gestión de Alumnos</title> <!-- Título de la página -->
+    
+    <!-- Enlace a la biblioteca de íconos Font Awesome para usar íconos en el menú -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Enlace al archivo CSS personalizado para estilizar la página -->
+    <link rel="stylesheet" href="../Estilos/estilo-alumnos.css">
+</head>
+<body>
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <!-- Logo o título del sistema -->
+        <div class="logo">
+            <h2>Gestor de Alumnos</h2> <!-- Nombre del sistema -->
+        </div>
+
+        <!-- Opciones del menú -->
+        <div class="menu-item active" data-form="Registrar_Alumno_Admin">
+            <i class="fas fa-user-plus"></i> Registrar Alumno <!-- Ícono y texto para registrar un alumno -->
+        </div>
+        <div class="menu-item" data-form="Buscar_Alumno_Admin">
+            <i class="fas fa-search"></i> Buscar Alumno <!-- Ícono y texto para buscar un alumno -->
+        </div>
+        <div class="menu-item" data-form="Actualizar_Alumno_Admin">
+            <i class="fas fa-edit"></i> Actualizar Datos <!-- Ícono y texto para actualizar datos de un alumno -->
+        </div>
+        <div class="menu-item" data-form="Eliminar_Alumno_Admin">
+            <i class="fas fa-trash-alt"></i> Eliminar Alumno <!-- Ícono y texto para eliminar un alumno -->
+        </div>
+        <div class="menu-item" id="btn-inicio">
+            <i class="fas fa-home"></i> Menú Principal <!-- Ícono y texto para regresar al menú principal -->
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="contenido-principal">
+        <!-- Iframe para cargar dinámicamente los formularios correspondientes -->
+        <iframe 
+            id="iframe-contenido" 
+            src="Registrar_Alumno_Admin.html" 
+            frameborder="0" 
+            style="width: 100%; height: 100%; border: none; background: transparent;">
+        </iframe>
+    </div>
+
+    <!-- Script JavaScript para manejar la lógica del menú y la carga dinámica de contenido -->
+    <script src="../Validaciones_Alumnos/Alumno_Menu_Principal.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../Estilos/Estilos-login.css">
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="contenedor-login">
+        <form id="login" action="../Controladores_Login/login.php" method="POST">
+            <h2>Iniciar Sesión</h2>
+
+            <!-- Campo de Usuario -->
+            <div class="campo">
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" name="usuario" placeholder="Nombre del Alumno, Profesor o Administrador" required>
+            </div>
+
+            <!-- Campo de Contraseña -->
+            <div class="campo">
+                <label for="contraseña">Contraseña:</label>
+                <input type="password" id="contraseña" name="contraseña" placeholder="Número de Control o Contraseña" required>
+            </div>
+
+            <!-- Botón de Entrar -->
+            <button type="submit" class="btn btn-success">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>

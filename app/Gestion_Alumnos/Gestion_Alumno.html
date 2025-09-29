@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Alumnos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Estilos/estilo-alumnos.css">
+</head>
+<body>
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <div class="logo">
+            <h2>Gestor de Alumnos</h2>
+        </div>
+        <div class="menu-item active" data-form="registrar">
+            <i class="fas fa-user-plus"></i> Registrar Alumno
+        </div>
+        <div class="menu-item" data-form="buscar">
+            <i class="fas fa-search"></i> Buscar Alumno
+        </div>
+        <div class="menu-item" data-form="actualizar">
+            <i class="fas fa-edit"></i> Actualizar Datos
+        </div>
+        <div class="menu-item" data-form="eliminar">
+            <i class="fas fa-trash-alt"></i> Eliminar Alumno
+        </div>
+        <div class="menu-item" id="btn-inicio">
+            <i class="fas fa-home"></i> Menú Principal
+        </div>
+    </div>
+    <!-- Contenido principal -->
+    <div class="contenido-principal">
+        <!-- Formulario de Registro -->
+        <div id="form-registrar" class="contenedor-formulario active">
+            <h2>Registro de Nuevo Alumno</h2>
+            <form id="formulario-registro">
+                <input type="hidden" name="action" value="registrar">
+                <!-- Información Personal -->
+                <div class="seccion-titulo">Información Personal</div>
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="campo">
+                        <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                    </div>
+                </div>
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="curso">Curso:</label>
+                        <input type="text" id="curso" name="curso" required>
+                    </div>
+                    <div class="campo">
+                        <label for="numero_de_control">Número de control:</label>
+                        <input type="text" id="numero_de_control" name="numero_de_control" required>
+                    </div>
+                </div>
+                <!-- Información de Contacto -->
+                <div class="seccion-titulo">Información de Contacto</div>
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="poblacion">Población:</label>
+                        <input type="text" id="poblacion" name="poblacion" required>
+                    </div>
+                    <div class="campo">
+                        <label for="direccion">Dirección:</label>
+                        <input type="text" id="direccion" name="direccion" required>
+                    </div>
+                </div>
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="campo">
+                        <label for="telefonos">Teléfonos:</label>
+                        <input type="text" id="telefonos" name="telefonos" required>
+                    </div>
+                </div>
+                <!-- Información Adicional -->
+                <div class="seccion-titulo">Información Adicional</div>
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="curp">CURP:</label>
+                        <input type="text" id="curp" name="curp" required>
+                    </div>
+                    <div class="campo">
+                        <label for="estatus">Estatus:</label>
+                        <input type="text" id="estatus" name="estatus">
+                    </div>
+                </div>
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="alergico">Alergias:</label>
+                        <input type="text" id="alergico" name="alergico">
+                    </div>
+                    <div class="campo">
+                        <label for="contacto_accidente">Contacto en emergencia:</label>
+                        <input type="text" id="contacto_accidente" name="contacto_accidente">
+                    </div>
+                </div>
+                <div class="campo">
+                    <label for="telefono_contacto">Teléfonos de contacto (emergencia):</label>
+                    <input type="text" id="telefono_contacto" name="telefono_contacto">
+                </div>
+                <!-- Personas Autorizadas -->
+                <div class="seccion-titulo">Personas Autorizadas</div>
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="autorizado1">Nombre del autorizado:</label>
+                        <input type="text" id="autorizado1" name="autorizado1">
+                    </div>
+                    <div class="campo">
+                        <label for="curp1">CURP del autorizado:</label>
+                        <input type="text" id="curp1" name="curp1">
+                    </div>
+                </div>
+                <div class="botones">
+                    <button type="submit" class="btn btn-success">Registrar</button>
+                    <button type="reset" class="btn btn-primary">Limpiar</button>
+                </div>
+                <div id="mensaje-registro" class="mensaje"></div>
+            </form>
+        </div>
+
+        <!-- Formulario de Búsqueda -->
+        <div id="form-buscar" class="contenedor-formulario">
+            <h2>Buscar Alumno</h2>
+            <form id="formulario-buscar">
+                <input type="hidden" name="action" value="buscar">
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="busqueda-numero">Número de Control:</label>
+                        <input type="text" id="busqueda-numero" name="numero_de_control" placeholder="Ingrese número de control" required>
+                    </div>
+                </div>
+                <div class="botones">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            <div id="resultados-busqueda" style="margin-top: 20px; display: none;">
+                <h3>Datos del Alumno</h3>
+                <div id="datos-alumno-buscar">
+                    <div class="grupo-campos">
+                        <div class="campo">
+                            <label for="nombre-buscar">Nombre:</label>
+                            <input type="text" id="nombre-buscar" readonly>
+                        </div>
+                        <div class="campo">
+                            <label for="curso-buscar">Curso:</label>
+                            <input type="text" id="curso-buscar" readonly>
+                        </div>
+                        <div class="campo">
+                            <label for="email-buscar">Email:</label>
+                            <input type="text" id="email-buscar" readonly>
+                        </div>
+                        <div class="campo">
+                            <label for="telefono-buscar">Teléfono:</label>
+                            <input type="text" id="telefono-buscar" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="mensaje-busqueda" class="mensaje"></div>
+        </div>
+
+        <!-- Formulario de Actualización -->
+        <div id="form-actualizar" class="contenedor-formulario">
+            <h2>Actualizar Datos de Alumno</h2>
+            <form id="formulario-actualizar">
+                <input type="hidden" name="action" value="buscar">
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="actualizar-numero">Número de Control:</label>
+                        <input type="text" id="actualizar-numero" name="numero_de_control" placeholder="Ingrese número de control" required>
+                    </div>
+                </div>
+                <div class="botones">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            <div id="formulario-actualizacion" style="display: none;">
+                <form id="formulario-actualizar-datos">
+                    <input type="hidden" name="action" value="actualizar">
+                    <input type="hidden" id="actualizar-id" name="id">
+                    <div class="grupo-campos">
+                        <div class="campo">
+                            <label for="nombre-actualizar">Nombre:</label>
+                            <input type="text" id="nombre-actualizar" name="nombre" required>
+                        </div>
+                        <div class="campo">
+                            <label for="curso-actualizar">Curso:</label>
+                            <input type="text" id="curso-actualizar" name="curso" required>
+                        </div>
+                        <div class="campo">
+                            <label for="email-actualizar">Email:</label>
+                            <input type="email" id="email-actualizar" name="email" required>
+                        </div>
+                    </div>
+                    <div class="botones">
+                        <button type="submit" class="btn btn-success">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+            <div id="mensaje-actualizar" class="mensaje"></div>
+        </div>
+
+        <!-- Formulario de Eliminación -->
+        <div id="form-eliminar" class="contenedor-formulario">
+            <h2>Eliminar Alumno</h2>
+            <form id="formulario-eliminar">
+                <input type="hidden" name="action" value="buscar">
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="eliminar-numero">Número de Control:</label>
+                        <input type="text" id="eliminar-numero" name="numero_de_control" placeholder="Ingrese número de control" required>
+                    </div>
+                </div>
+                <div class="botones">
+                    <button type="submit" class="btn btn-danger">Buscar</button>
+                </div>
+            </form>
+            <div id="resultados-eliminar" style="margin-top: 20px; display: none;">
+                <h3>Confirmar Eliminación</h3>
+                <div id="datos-alumno-eliminar">
+                    <div class="grupo-campos">
+                        <div class="campo">
+                            <label for="nombre-eliminar">Nombre:</label>
+                            <input type="text" id="nombre-eliminar" readonly>
+                        </div>
+                        <div class="campo">
+                            <label for="curso-eliminar">Curso:</label>
+                            <input type="text" id="curso-eliminar" readonly>
+                        </div>
+                        <div class="campo">
+                            <label for="email-eliminar">Email:</label>
+                            <input type="text" id="email-eliminar" readonly>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-danger" id="btn-confirmar-eliminacion">Eliminar</button>
+            </div>
+            <div id="mensaje-eliminar" class="mensaje"></div>
+        </div>
+    </div>
+    <script src="../validaciones/crud-alumnos.js"></script>
+</body>
+</html>

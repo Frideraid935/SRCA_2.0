@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento HTML -->
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura que la página sea responsive -->
+    <title>Sistema de Gestión de Alumnos</title> <!-- Título de la página -->
+    
+    <!-- Enlace a la biblioteca de íconos Font Awesome para usar íconos en el menú -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Enlace al archivo CSS personalizado para estilizar la página -->
+    <link rel="stylesheet" href="../Estilos/estilo-alumnos.css">
+</head>
+<body>
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <!-- Logo o título -->
+        <div class="logo">
+            <h2>Gestor de Salones</h2>
+        </div>
+
+        <!-- Opciones del menú -->
+        <div class="menu-item active" data-form="Registrar_Salon_Admin">
+            <i class="fas fa-door-open"></i> Registrar Salón
+        </div>
+        <div class="menu-item" data-form="Buscar_Salon_Admin">
+            <i class="fas fa-search"></i> Buscar Salón
+        </div>
+        <!-- Opción Actualizar Eliminada -->
+        <div class="menu-item" data-form="Eliminar_Salon_Admin">
+            <i class="fas fa-trash-alt"></i> Eliminar Salón
+        </div>
+        <div class="menu-item" id="btn-inicio">
+            <i class="fas fa-home"></i> Menú Principal
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="contenido-principal">
+        <iframe 
+            id="iframe-contenido" 
+            src="Registrar_Salon_Admin.html" 
+            frameborder="0" 
+            style="width: 100%; height: 100%; border: none; background: transparent;">
+        </iframe>
+    </div>
+
+    <!-- Script del menú -->
+    <script src="../Validaciones_Salones/Salon_Menu_Principal.js"></script>
+</body>
+</html>

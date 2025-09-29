@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Salones</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Estilos/ESTILO_GESTSALONES.css">
+</head>
+<body>
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <div class="logo">
+            <h2>Gestor de Salones</h2>
+        </div>
+
+        <div class="menu-item active" data-form="registrar">
+            <i class="fas fa-chalkboard"></i> Registrar Salón
+        </div>
+
+        <div class="menu-item" data-form="buscar">
+            <i class="fas fa-search"></i> Buscar Salón
+        </div>
+
+        <div class="menu-item" data-form="eliminar">
+            <i class="fas fa-trash-alt"></i> Eliminar Salón
+        </div>
+
+        <div class="menu-item" id="btn-inicio">
+            <i class="fas fa-home"></i> Menú Principal
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="contenido-principal">
+
+        <!-- Formulario de Registro -->
+        <div id="form-registrar" class="contenedor-formulario active">
+            <h2>Registro de Nuevo Salón</h2>
+            <form id="formulario-salon">
+                <div class="seccion-titulo">Datos del Salón</div>
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="id_salon">ID Salón:</label>
+                        <input type="text" id="id_salon" name="id_salon" required>
+                    </div>
+                    <div class="campo">
+                        <label for="nombre_salon">Nombre del Salón:</label>
+                        <input type="text" id="nombre_salon" name="nombre_salon" required>
+                    </div>
+                </div>
+                <div class="grupo-campos">
+                    <div class="campo">
+                        <label for="capacidad">Capacidad:</label>
+                        <input type="number" id="capacidad" name="capacidad" required>
+                    </div>
+                    <div class="campo">
+                        <label for="nombre_profesor">Nombre del Profesor:</label>
+                        <input type="text" id="nombre_profesor" name="nombre_profesor" required>
+                    </div>
+                </div>
+                <div class="botones">
+                    <button type="button" class="btn btn-success" onclick="guardar()">Guardar</button>
+                    <button type="reset" class="btn btn-primary">Limpiar</button>
+                </div>
+                <div id="mensaje-registro" class="mensaje"></div>
+            </form>
+        </div>
+
+        <!-- Formulario de Búsqueda -->
+        <div id="form-buscar" class="contenedor-formulario">
+            <h2>Buscar Salón</h2>
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="busqueda-id">ID Salón:</label>
+                    <input type="text" id="busqueda-id" placeholder="Ingrese ID del salón">
+                </div>
+            </div>
+            <div class="botones">
+                <button class="btn btn-primary" id="btn-buscar">Buscar</button>
+            </div>
+            <div id="resultados-busqueda" style="margin-top: 20px; display: none;">
+                <h3>Datos del Salón</h3>
+                <div id="datos-salon"></div>
+            </div>
+            <div id="mensaje-busqueda" class="mensaje"></div>
+        </div>
+
+        <!-- Formulario de Actualización -->
+        <div id="form-actualizar" class="contenedor-formulario">
+            <h2>Actualizar Datos del Salón</h2>
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="actualizar-id">ID Salón:</label>
+                    <input type="text" id="actualizar-id" placeholder="Ingrese ID del salón">
+                </div>
+            </div>
+            <div class="botones">
+                <button class="btn btn-primary" id="btn-buscar-actualizar">Buscar</button>
+            </div>
+            <form id="formulario-actualizar" style="display: none;">
+                <!-- Los campos se llenarán dinámicamente -->
+            </form>
+            <div id="mensaje-actualizar" class="mensaje"></div>
+        </div>
+
+        <!-- Formulario de Eliminación -->
+        <div id="form-eliminar" class="contenedor-formulario">
+            <h2>Eliminar Salón</h2>
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="eliminar-id">ID Salón:</label>
+                    <input type="text" id="eliminar-id" placeholder="Ingrese ID del salón">
+                </div>
+            </div>
+            <div class="botones">
+                <button class="btn btn-danger" id="btn-confirmar-eliminar">Eliminar</button>
+            </div>
+            <div id="mensaje-eliminar" class="mensaje"></div>
+        </div>
+
+    </div>
+    <!-- Formulario de GUARDAR -->
+    
+
+
+    <script src="../validaciones/CRUD-SALONES.js"></script>
+</body>
+</html>

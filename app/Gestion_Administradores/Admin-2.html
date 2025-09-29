@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Administradores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Estilos/estilo-alumnos.css">
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background: linear-gradient(to right, #f4f6f9, #dde6f0);
+        }
+        
+        /* Menú lateral (manteniendo tus estilos) */
+        .menu-lateral {
+            width: 250px;
+            background-color: #34495e;
+            padding: 20px 0;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Contenido principal */
+        .contenido-principal {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: auto;
+        }
+        
+        /* Contenedor del iframe */
+        .contenedor-iframe {
+            width: 100%;
+            max-width: 900px;
+            height: 90vh;
+        }
+        
+        /* Iframe sin bordes ni fondo blanco */
+        #contenido-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: transparent;
+            overflow: hidden;
+        }
+        
+        /* Asegurar que el contenido del iframe ocupe todo el espacio */
+        #contenido-iframe html, 
+        #contenido-iframe body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+        }
+        
+        /* Ajustar los formularios dentro del iframe */
+        #contenido-iframe .contenedor-formulario {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            background-color: transparent;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <div class="logo">
+            <h2>Panel de Administración</h2>
+        </div>
+
+        <div class="menu-item active" onclick="cargarFormulario('Admin_registrar.html')">
+            <i class="fas fa-user-plus"></i> Registrar Admin
+        </div>
+
+        <div class="menu-item" onclick="cargarFormulario('Admin_eliminar.html')">
+            <i class="fas fa-trash-alt"></i> Eliminar Admin
+        </div>
+
+        <div class="menu-item" onclick="window.location.href='../Menu_inicio/inicio_Admin.html'">
+            <i class="fas fa-home"></i> Menú Principal
+        </div>
+    </div>
+
+    <!-- Contenido principal con iframe transparente -->
+    <div class="contenido-principal">
+        <div class="contenedor-iframe">
+            <iframe id="contenido-iframe" src="Admin_registrar.html" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function cargarFormulario(url) {
+            const iframe = document.getElementById('contenido-iframe');
+            iframe.src = url;
+            
+            // Actualizar menú activo
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // Ajustar altura después de cargar
+            iframe.onload = function() {
+                setTimeout(() => {
+                    const contentHeight = iframe.contentWindow.document.body.scrollHeight;
+                    iframe.style.height = contentHeight + 'px';
+                }, 100);
+            };
+        }
+        
+        // Ajustar altura inicial
+        window.addEventListener('load', function() {
+            const iframe = document.getElementById('contenido-iframe');
+            iframe.onload();
+        });
+    </script>
+</body>
+</html>

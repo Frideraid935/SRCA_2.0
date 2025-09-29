@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Alumnos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Estilos/estilo-alumnos.css">
+</head>
+<body>
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <div class="logo">
+            <h2>Gestor de Alumnos</h2>
+        </div>
+        
+        <div class="menu-item active" data-form="buscar">
+            <i class="fas fa-search"></i> Buscar Alumno
+        </div>
+
+        <div class="menu-item" data-form="actualizar">
+            <i class="fas fa-edit"></i> Actualizar Datos
+        </div>
+
+        <!-- Botón de inicio abajo -->
+        <div class="menu-item" data-form="inicio" id="btn-inicio">
+            <i class="fas fa-home"></i> Menú Principal
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="contenido-principal">
+        <!-- Formulario de Búsqueda -->
+        <div id="form-buscar" class="contenedor-formulario active">
+            <h2>Buscar Alumno</h2>
+            <form id="formulario-buscar" class="grupo-campos">
+                <div class="campo">
+                    <label for="busqueda-numero">Número de Control:</label>
+                    <input type="text" id="busqueda-numero" name="numero_de_control" placeholder="Ingrese número de control" required>
+                </div>
+                <div class="botones">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            <div id="resultados-busqueda" style="margin-top: 20px; display: none;">
+                <h3>Datos del Alumno</h3>
+                <div id="datos-alumno"></div>
+            </div>
+            <div id="mensaje-busqueda" class="mensaje"></div>
+        </div>
+
+        <!-- Formulario de Actualización -->
+        <div id="form-actualizar" class="contenedor-formulario" style="display: none;">
+            <h2>Actualizar Datos de Alumno</h2>
+            <form id="formulario-buscar-actualizar" class="grupo-campos">
+                <div class="campo">
+                    <label for="actualizar-numero">Número de Control:</label>
+                    <input type="text" id="actualizar-numero" name="numero_de_control" placeholder="Ingrese número de control" required>
+                </div>
+                <div class="botones">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            <form id="formulario-actualizar" style="display: none;" class="grupo-campos">
+                <input type="hidden" id="numero_de_control_actualizar" name="numero_de_control">
+                <div class="campo">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="campo">
+                    <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                </div>
+                <div class="campo">
+                    <label for="curso">Curso:</label>
+                    <input type="text" id="curso" name="curso" required>
+                </div>
+                <div class="campo">
+                    <label for="poblacion">Población:</label>
+                    <input type="text" id="poblacion" name="poblacion" required>
+                </div>
+                <div class="campo">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" id="direccion" name="direccion" required>
+                </div>
+                <div class="campo">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="campo">
+                    <label for="telefonos">Teléfonos:</label>
+                    <input type="text" id="telefonos" name="telefonos" required>
+                </div>
+                <div class="campo">
+                    <label for="curp">CURP:</label>
+                    <input type="text" id="curp" name="curp" required>
+                </div>
+                <div class="campo">
+                    <label for="estatus">Estatus:</label>
+                    <input type="text" id="estatus" name="estatus" required>
+                </div>
+                <div class="campo">
+                    <label for="alergico">Alergias:</label>
+                    <input type="text" id="alergico" name="alergico">
+                </div>
+                <div class="campo">
+                    <label for="contacto_accidente">Contacto en caso de accidente:</label>
+                    <input type="text" id="contacto_accidente" name="contacto_accidente">
+                </div>
+                <div class="campo">
+                    <label for="telefonos_contacto">Teléfonos de Contacto:</label>
+                    <input type="text" id="telefonos_contacto" name="telefonos_contacto">
+                </div>
+                <div class="campo">
+                    <label for="nombre_autorizado">Nombre Autorizado:</label>
+                    <input type="text" id="nombre_autorizado" name="nombre_autorizado">
+                </div>
+                <div class="campo">
+                    <label for="curp_autorizado">CURP Autorizado:</label>
+                    <input type="text" id="curp_autorizado" name="curp_autorizado">
+                </div>
+                <div class="botones">
+                    <button type="submit" class="btn btn-success">Actualizar</button>
+                </div>
+            </form>
+            <div id="mensaje-actualizar" class="mensaje"></div>
+        </div>
+    </div>
+
+    <script src="../Validaciones_Alumnos/Alumno_Buscar_Actualizar_Alumno.js"></script>
+</body>
+</html>

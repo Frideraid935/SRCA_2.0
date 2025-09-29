@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Profesor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Estilos/estilo.css">
+    <style>
+        .tabla-profesor {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .tabla-profesor th, .tabla-profesor td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .tabla-profesor th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor-formulario active">
+        <h2>Buscar Profesor</h2>
+        <div class="grupo-campos">
+            <div class="campo">
+                <label for="busqueda-numero">Número de Control:</label>
+                <input type="text" id="busqueda-numero" placeholder="Ingrese número de control">
+            </div>
+        </div>
+        <div class="botones">
+            <button class="btn btn-primary" id="btn-buscar">Buscar</button>
+        </div>
+        <div id="resultados-busqueda" style="margin-top: 20px; display: none;">
+            <h3>Datos del Profesor</h3>
+            <div id="datos-profesor"></div>
+        </div>
+        <div id="mensaje-busqueda" class="mensaje"></div>
+    </div>
+
+    <script src="../controladores-profesores/Buscar_profesores.js"></script>
+</body>
+</html>

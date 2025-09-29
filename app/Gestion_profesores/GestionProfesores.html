@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Profesores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Estilos/estilos-profesores.css">
+</head>
+<body>
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <div class="logo">
+            <h2>Gestor de Profesores</h2>
+        </div>
+        
+        <!-- Opciones del menú con atributos data-form -->
+        <div class="menu-item active" data-form="Ingresar_profesores">
+            <i class="fas fa-user-plus"></i> Ingresar Profesor
+        </div>
+        
+        <div class="menu-item" data-form="Buscar_profesores">
+            <i class="fas fa-search"></i> Buscar Profesor
+        </div>
+        
+        <div class="menu-item" data-form="Actualizar_profesores">
+            <i class="fas fa-edit"></i> Actualizar Profesor
+        </div>
+        
+        <div class="menu-item" data-form="Eliminar_profesores">
+            <i class="fas fa-trash-alt"></i> Eliminar Profesor
+        </div>
+        
+        <div class="menu-item" id="btn-inicio">
+            <i class="fas fa-home"></i> Menú Principal
+        </div>
+    </div>
+
+    <!-- Contenido principal con iframe -->
+    <div class="contenido-principal">
+        <iframe 
+            id="iframe-contenido" 
+            src="../Gestion_profesores/Ingresar_profesores.html" 
+            frameborder="0" 
+            style="width: 100%; height: 100%; border: none; background: transparent;">
+        </iframe>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script>
+        // Función para cargar el contenido en el iframe
+        function cargarContenido(formulario) {
+            document.getElementById('iframe-contenido').src = `${formulario}.html`;
+            
+            // Actualizar menú activo
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        // Event listeners para los items del menú
+        document.querySelectorAll('.menu-item[data-form]').forEach(item => {
+            item.addEventListener('click', function() {
+                const formulario = this.getAttribute('data-form');
+                cargarContenido(formulario);
+            });
+        });
+
+        // Event listener para el botón de inicio
+        document.getElementById("btn-inicio").addEventListener("click", function() {
+            window.location.href = "../Menu_inicio/inicio_Admin.html";
+        });
+
+        // Cargar el formulario inicial
+        window.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.menu-item[data-form]').click();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Profesor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Estilos/estilo.css">
+</head>
+<body>
+    <div class="contenedor-formulario active">
+        <h2>Actualizar Datos de Profesor</h2>
+        <div class="grupo-campos">
+            <div class="campo">
+                <label for="actualizar-numero">Número de Control:</label>
+                <input type="text" id="actualizar-numero" placeholder="Ingrese número de control">
+            </div>
+        </div>
+        <div class="botones">
+            <button class="btn btn-primary" id="btn-buscar-actualizar">Buscar</button>
+        </div>
+        <form id="formulario-actualizar" style="display: none;">
+            <input type="hidden" id="numero_original" name="numero_original">
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="nombre_actualizar">Nombre:</label>
+                    <input type="text" id="nombre_actualizar" name="nombre_actualizar" placeholder="Nombre del profesor" required>
+                </div>
+                <div class="campo">
+                    <label for="especialidad_actualizar">Especialidad:</label>
+                    <input type="text" id="especialidad_actualizar" name="especialidad_actualizar" placeholder="Especialidad del profesor" required>
+                </div>
+            </div>
+            
+            <div class="botones">
+                <button type="button" class="btn btn-success" onclick="actualizarProfesor()">Actualizar</button>
+                <button type="reset" class="btn btn-primary">Limpiar</button>
+            </div>
+            <div id="mensaje-actualizar" class="mensaje"></div>
+        </form>
+    </div>
+
+    <script src="../controladores-profesores/Actualizar_profesores.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Salón</title>
+    <link rel="stylesheet" href="../Estilos/estilo.css">
+    <style>
+        .mensaje-exito {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .mensaje-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor-formulario">
+        <h2>Eliminar Salón</h2>
+
+        <form id="formulario-eliminar-salon" class="grupo-campos">
+            <div class="campo">
+                <label for="id">ID del Salón:</label>
+                <input type="text" id="id" name="id" placeholder="Ingrese el ID del salón" required>
+            </div>
+            <div class="botones">
+                <button type="submit" class="btn btn-danger">Buscar y Eliminar</button>
+            </div>
+        </form>
+
+        <div id="datos-salon" style="margin-top: 20px; display: none;"></div>
+        <div id="mensaje-eliminar-salon"></div>
+    </div>
+
+    <script src="../Validaciones_Salones/Salon_Borrar_Val.js"></script>
+</body>
+</html>

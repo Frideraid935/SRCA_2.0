@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión de Materias</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../Estilos/estilos-profesores.css">
+</head>
+<body>
+
+  <!-- Menú lateral -->
+  <div class="menu-lateral">
+    <div class="logo">
+      <h2>Gestor de Materias</h2>
+    </div>
+
+    <div class="menu-item active" data-form="form-ingresar">
+      <i class="fas fa-plus"></i> Ingresar Materia
+    </div>
+
+    <div class="menu-item" data-form="form-eliminar">
+      <i class="fas fa-trash-alt"></i> Eliminar Materia
+    </div>
+
+    <!-- Botón de Menú principal -->
+    <div class="menu-item" id="btn-inicio">
+      <i class="fas fa-home"></i> Menú Principal
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="contenido-principal">
+    <!-- Ingresar Materia -->
+    <div class="contenedor-formulario formulario-materia active" id="form-ingresar">
+      <h2 class="seccion-titulo">Ingresar Materia</h2>
+      <br>
+      <form id="formulario-ingresar">
+        <div class="campo">
+          <label for="materia-nombre">Nombre de la Materia:</label>
+          
+          <input type="text" id="materia-nombre" placeholder="Ingrese el nombre de la materia" required />
+        </div>
+        <br>
+        <div class="campo">
+          <label for="materia-codigo">Código:</label>
+          <input type="text" id="materia-codigo" placeholder="Ingrese el código" required />
+        </div>
+        
+        <div class="botones">
+          <button type="submit" class="btn btn-success">Registrar</button>
+          <button type="reset" class="btn btn-primary">Limpiar</button>
+        </div>
+        <div id="mensaje-ingresar" class="mensaje"></div>
+      </form>
+    </div>
+
+    <!-- Eliminar Materia -->
+    <div class="contenedor-formulario formulario-materia" id="form-eliminar" style="display: none;">
+      <h2 class="seccion-titulo">Eliminar Materia</h2>
+      <br>
+      <form id="formulario-eliminar">
+        <div class="campo">
+          <label for="materia-codigo-eliminar">Código de la Materia:</label>
+          <input type="text" id="materia-codigo-eliminar" placeholder="Ingrese el código de la materia a eliminar" required />
+        </div>
+        <br>
+        <div class="campo">
+          <label for="confirmar-eliminar">Confirmar Contraseña:</label>
+          <input type="password" id="confirmar-eliminar" placeholder="Confirme su contraseña" required />
+        </div>
+        <div class="botones">
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <button type="reset" class="btn btn-primary">Limpiar</button>
+        </div>
+        <div id="mensaje-eliminar" class="mensaje"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Archivo JavaScript externo -->
+  <script src="../validaciones/val_materia.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+/* --------------------------------------- */
+/* ESTILOS GENERALES */
+/* --------------------------------------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #34495e; /* Color de texto principal */
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+/* --------------------------------------- */
+/* CONTENEDOR DE FORMULARIO */
+/* --------------------------------------- */
+
+.contenedor-formulario {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+    padding: 30px;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    width: 100%;
+    max-width: 800px; /* Ancho máximo del formulario */
+    margin: 20px auto; /* Centrado horizontal */
+}
+
+/* Títulos principales */
+h2 {
+    color: #3498db; /* Azul para los títulos */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* --------------------------------------- */
+/* SECCIONES DEL FORMULARIO */
+/* --------------------------------------- */
+
+.seccion-titulo {
+    color: #3498db; /* Azul para los subtítulos */
+    margin: 20px 0 15px;
+    font-size: 1.2em;
+    font-weight: 600;
+    border-bottom: 2px solid #ddd; /* Línea divisoria */
+    padding-bottom: 5px;
+}
+
+/* --------------------------------------- */
+/* GRUPOS DE CAMPOS */
+/* --------------------------------------- */
+
+.grupo-campos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; /* Espacio entre campos */
+    margin-bottom: 15px;
+}
+
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #34495e; /* Color del texto de las etiquetas */
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd; /* Borde gris claro */
+    border-radius: 6px; /* Bordes redondeados */
+    font-size: 16px;
+    transition: all 0.3s; /* Transición suave */
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    border-color: #3498db; /* Cambia el color del borde al enfocar */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); /* Resalta el campo */
+}
+
+/* --------------------------------------- */
+/* BOTONES */
+/* --------------------------------------- */
+
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacio entre botones */
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px; /* Bordes redondeados */
+    font-size: 16px;
+    cursor: pointer;
+    min-width: 150px;
+    transition: all 0.3s; /* Transición suave */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    font-weight: 600;
+}
+
+/* Botón primario */
+.btn-primary {
+    background-color: #3498db; /* Azul */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9; /* Azul más oscuro */
+}
+
+/* Botón de éxito */
+.btn-success {
+    background-color: #2ecc71; /* Verde */
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #27ae60; /* Verde más oscuro */
+}
+
+/* Botón de peligro */
+.btn-danger {
+    background-color: #e74c3c; /* Rojo */
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b; /* Rojo más oscuro */
+}
+
+/* --------------------------------------- */
+/* MENSAJES */
+/* --------------------------------------- */
+
+.mensaje {
+    margin-top: 20px;
+    padding: 15px;
+    text-align: center;
+    border-radius: 6px; /* Bordes redondeados */
+    display: none; /* Oculto por defecto */
+}
+
+/* Mensaje de éxito */
+.mensaje-exito {
+    background-color: #d5f5e3; /* Verde claro */
+    color: #27ae60; /* Verde oscuro */
+    border-left: 5px solid #2ecc71; /* Borde izquierdo verde */
+}
+
+/* Mensaje de error */
+.mensaje-error {
+    background-color: #fadbd8; /* Rojo claro */
+    color: #e74c3c; /* Rojo oscuro */
+    border-left: 5px solid #e74c3c; /* Borde izquierdo rojo */
+}
+
+/* --------------------------------------- */
+/* RESPONSIVE DESIGN */
+/* --------------------------------------- */
+
+@media (max-width: 900px) {
+    .grupo-campos {
+        grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+    }
+
+    .contenedor-formulario {
+        padding: 20px; /* Reducir el padding */
+    }
+}
+
+@media (max-width: 600px) {
+    .botones {
+        flex-direction: column; /* Botones en columna */
+    }
+
+    .btn {
+        width: 100%; /* Botones ocupan todo el ancho */
+    }
+}

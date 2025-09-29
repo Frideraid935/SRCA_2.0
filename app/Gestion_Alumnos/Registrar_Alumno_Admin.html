@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento HTML -->
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura que la página sea responsive -->
+    <title>Registro de Alumno</title> <!-- Título de la página -->
+    <link rel="stylesheet" href="../Estilos/estilo.css"> <!-- Enlace al archivo CSS para estilizar la página -->
+</head>
+<body>
+    <!-- Contenedor principal del formulario -->
+    <div class="contenedor-formulario">
+        <!-- Título del formulario -->
+        <h2>Registro de Nuevo Alumno</h2>
+
+        <!-- Formulario para registrar un nuevo alumno -->
+        <form id="formulario-registro" method="POST">
+            <!-- Sección: Información Personal -->
+            <div class="seccion-titulo">Información Personal</div>
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required> <!-- Campo obligatorio para el nombre -->
+                </div>
+                <div class="campo">
+                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required> <!-- Campo obligatorio para la fecha de nacimiento -->
+                </div>
+            </div>
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="curso">Curso:</label>
+                    <input type="text" id="curso" name="curso" required> <!-- Campo obligatorio para el curso -->
+                </div>
+                <div class="campo">
+                    <label for="numero_de_control">Número de control:</label>
+                    <input type="text" id="numero_de_control" name="numero_de_control" required> <!-- Campo obligatorio para el número de control -->
+                </div>
+            </div>
+            <div class="campo">
+                <label for="curp">CURP:</label>
+                <input type="text" id="curp" name="curp" required> <!-- Campo obligatorio para el CURP -->
+            </div>
+
+            <!-- Sección: Información de Contacto -->
+            <div class="seccion-titulo">Información de Contacto</div>
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="poblacion">Población:</label>
+                    <input type="text" id="poblacion" name="poblacion" required> <!-- Campo obligatorio para la población -->
+                </div>
+                <div class="campo">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" id="direccion" name="direccion" required> <!-- Campo obligatorio para la dirección -->
+                </div>
+            </div>
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required> <!-- Campo obligatorio para el email -->
+                </div>
+                <div class="campo">
+                    <label for="telefonos">Teléfonos:</label>
+                    <input type="text" id="telefonos" name="telefonos" required> <!-- Campo obligatorio para los teléfonos -->
+                </div>
+            </div>
+
+            <!-- Sección: Información Adicional -->
+            <div class="seccion-titulo">Información Adicional</div>
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="alergico">Alergias:</label>
+                    <input type="text" id="alergico" name="alergico"> <!-- Campo opcional para las alergias -->
+                </div>
+                <div class="campo">
+                    <label for="contacto_accidente">En caso de accidente avisar a:</label>
+                    <input type="text" id="contacto_accidente" name="contacto_accidente"> <!-- Campo opcional para el contacto en caso de accidente -->
+                </div>
+            </div>
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="telefonos_contacto">Teléfonos de contacto:</label>
+                    <input type="text" id="telefonos_contacto" name="telefonos_contacto"> <!-- Campo opcional para los teléfonos de contacto -->
+                </div>
+            </div>
+
+            <!-- Sección: Personas Autorizadas -->
+            <div class="seccion-titulo">Personas Autorizadas</div>
+            <div class="grupo-campos">
+                <div class="campo">
+                    <label for="nombre_autorizado">Autorizado:</label>
+                    <input type="text" id="nombre_autorizado" name="nombre_autorizado"> <!-- Campo opcional para el nombre autorizado -->
+                    <label for="curp_autorizado">CURP:</label>
+                    <input type="text" id="curp_autorizado" name="curp_autorizado"> <!-- Campo opcional para el CURP autorizado -->
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="botones">
+                <button type="submit" class="btn btn-success">Registrar</button> <!-- Botón para enviar el formulario -->
+                <button type="reset" class="btn btn-primary">Limpiar</button> <!-- Botón para limpiar los campos del formulario -->
+            </div>
+
+            <!-- Contenedor para mostrar mensajes de éxito o error -->
+            <div id="mensaje-registro" class="mensaje"></div>
+        </form>
+    </div>
+
+    <!-- Script JavaScript para manejar la validación y lógica del formulario -->
+    <script src="../Validaciones_Alumnos/Alumno_Registrar_val.js"></script>
+</body>
+</html>

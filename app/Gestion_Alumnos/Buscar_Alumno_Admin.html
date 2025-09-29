@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento HTML -->
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura que la página sea responsive -->
+    <title>Buscar Alumno</title> <!-- Título de la página -->
+    <link rel="stylesheet" href="../Estilos/estilo.css"> <!-- Enlace al archivo CSS para estilizar la página -->
+</head>
+<body>
+    <!-- Contenedor principal del formulario -->
+    <div class="contenedor-formulario">
+        <!-- Título de la página -->
+        <h2>Buscar Alumno</h2>
+
+        <!-- Formulario para buscar un alumno por su número de control -->
+        <form id="formulario-buscar" class="grupo-campos">
+            <!-- Campo para ingresar el número de control -->
+            <div class="campo">
+                <label for="numero_de_control">Número de Control:</label>
+                <input type="text" id="numero_de_control" name="numero_de_control" placeholder="Ingrese el número de control" required>
+            </div>
+            <!-- Botón para enviar el formulario de búsqueda -->
+            <div class="botones">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+
+        <!-- Contenedor para mostrar los resultados de la búsqueda (inicialmente oculto) -->
+        <div id="resultados-busqueda" style="margin-top: 20px; display: none;">
+            <h3>Datos del Alumno</h3>
+            <!-- Contenedor donde se mostrarán los datos del alumno encontrado -->
+            <div id="datos-alumno"></div>
+        </div>
+
+        <!-- Contenedor para mostrar mensajes de éxito o error -->
+        <div id="mensaje-busqueda" class="mensaje"></div>
+    </div>
+
+    <!-- Script JavaScript para manejar la validación y lógica del formulario -->
+    <script src="../Validaciones_Alumnos/Alumno_Buscar_val.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Alumno</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Estilos/estilo-alumnos.css">
+</head>
+<body>
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <div class="logo">
+            <h2>Gestor de Alumnos</h2>
+        </div>
+        
+        <div class="menu-item active" data-form="buscar">
+            <i class="fas fa-search"></i> Buscar Alumno
+        </div>
+
+        <!-- Botón de inicio abajo -->
+        <div class="menu-item" id="btn-inicio">
+            <i class="fas fa-home"></i> Menú Principal
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="contenido-principal">
+        <!-- Formulario de Búsqueda -->
+        <div id="form-buscar" class="contenedor-formulario active">
+            <h2>Buscar Alumno</h2>
+            <form id="formulario-buscar" class="grupo-campos">
+                <div class="campo">
+                    <label for="busqueda-numero">Número de Control:</label>
+                    <input type="text" id="busqueda-numero" name="numero_de_control" placeholder="Ingrese número de control" required>
+                </div>
+                <div class="botones">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            <div id="resultados-busqueda" style="margin-top: 20px; display: none;">
+                <h3>Datos del Alumno</h3>
+                <div id="datos-alumno"></div>
+            </div>
+            <div id="mensaje-busqueda" class="mensaje"></div>
+        </div>
+    </div>
+
+    <script src="../Validaciones_Alumnos/Alumno_Buscar_Prof_val.js"></script>
+</body>
+</html>

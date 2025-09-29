@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento HTML -->
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura que la página sea responsive -->
+    <title>Actualizar Alumno</title> <!-- Título de la página -->
+    <link rel="stylesheet" href="../Estilos/estilo.css"> <!-- Enlace al archivo CSS para estilizar la página -->
+</head>
+<body>
+    <!-- Contenedor principal del formulario -->
+    <div class="contenedor-formulario">
+        <!-- Título de la página -->
+        <h2>Actualizar Alumno</h2>
+
+        <!-- Formulario para buscar un alumno por su número de control -->
+        <form id="formulario-buscar" class="grupo-campos">
+            <!-- Campo para ingresar el número de control -->
+            <div class="campo">
+                <label for="numero_de_control">Número de Control:</label>
+                <input type="text" id="numero_de_control" name="numero_de_control" placeholder="Ingrese el número de control" required>
+            </div>
+            <!-- Botón para enviar el formulario de búsqueda -->
+            <div class="botones">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+
+        <!-- Formulario para actualizar los datos del alumno (inicialmente oculto) -->
+        <form id="formulario-actualizar" style="display: none;" class="grupo-campos">
+            <!-- Campo oculto para almacenar el número de control del alumno a actualizar -->
+            <input type="hidden" id="numero_de_control_actualizar" name="numero_de_control">
+
+            <!-- Campo para el nombre del alumno -->
+            <div class="campo">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <!-- Campo para la fecha de nacimiento -->
+            <div class="campo">
+                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+            </div>
+            <!-- Campo para el curso -->
+            <div class="campo">
+                <label for="curso">Curso:</label>
+                <input type="text" id="curso" name="curso" required>
+            </div>
+            <!-- Campo para la población -->
+            <div class="campo">
+                <label for="poblacion">Población:</label>
+                <input type="text" id="poblacion" name="poblacion" required>
+            </div>
+            <!-- Campo para la dirección -->
+            <div class="campo">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
+            </div>
+            <!-- Campo para el email -->
+            <div class="campo">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <!-- Campo para los teléfonos -->
+            <div class="campo">
+                <label for="telefonos">Teléfonos:</label>
+                <input type="text" id="telefonos" name="telefonos" required>
+            </div>
+            <!-- Campo para el CURP -->
+            <div class="campo">
+                <label for="curp">CURP:</label>
+                <input type="text" id="curp" name="curp" required>
+            </div>
+            <!-- Campo para el estatus -->
+            <div class="campo">
+                <label for="estatus">Estatus:</label>
+                <input type="text" id="estatus" name="estatus" required>
+            </div>
+            <!-- Campo opcional para las alergias -->
+            <div class="campo">
+                <label for="alergico">Alergias:</label>
+                <input type="text" id="alergico" name="alergico">
+            </div>
+            <!-- Campo opcional para el contacto en caso de accidente -->
+            <div class="campo">
+                <label for="contacto_accidente">Contacto en caso de accidente:</label>
+                <input type="text" id="contacto_accidente" name="contacto_accidente">
+            </div>
+            <!-- Campo opcional para los teléfonos de contacto -->
+            <div class="campo">
+                <label for="telefonos_contacto">Teléfonos de Contacto:</label>
+                <input type="text" id="telefonos_contacto" name="telefonos_contacto">
+            </div>
+            <!-- Campo opcional para el nombre autorizado -->
+            <div class="campo">
+                <label for="nombre_autorizado">Nombre Autorizado:</label>
+                <input type="text" id="nombre_autorizado" name="nombre_autorizado">
+            </div>
+            <!-- Campo opcional para el CURP autorizado -->
+            <div class="campo">
+                <label for="curp_autorizado">CURP Autorizado:</label>
+                <input type="text" id="curp_autorizado" name="curp_autorizado">
+            </div>
+            <!-- Botón para enviar el formulario de actualización -->
+            <div class="botones">
+                <button type="submit" class="btn btn-success">Actualizar</button>
+            </div>
+        </form>
+
+        <!-- Contenedor para mostrar mensajes de éxito o error -->
+        <div id="mensaje-actualizar" class="mensaje"></div>
+    </div>
+
+    <!-- Script JavaScript para manejar la validación y lógica del formulario -->
+    <script src="../Validaciones_Alumnos/Alumno_Actualizar_val.js"></script>
+</body>
+</html>

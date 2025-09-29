@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento HTML -->
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura que la página sea responsive -->
+    <title>Eliminar Alumno</title> <!-- Título de la página -->
+    <link rel="stylesheet" href="../Estilos/estilo.css"> <!-- Enlace al archivo CSS para estilizar la página -->
+</head>
+<body>
+    <!-- Contenedor principal del formulario -->
+    <div class="contenedor-formulario">
+        <!-- Título de la página -->
+        <h2>Eliminar Alumno</h2>
+
+        <!-- Formulario para buscar y eliminar un alumno por su número de control -->
+        <form id="formulario-eliminar" class="grupo-campos">
+            <!-- Campo para ingresar el número de control -->
+            <div class="campo">
+                <label for="numero_de_control">Número de Control:</label>
+                <input type="text" id="numero_de_control" name="numero_de_control" placeholder="Ingrese el número de control" required>
+            </div>
+            <!-- Botón para enviar el formulario de búsqueda y eliminación -->
+            <div class="botones">
+                <button type="submit" class="btn btn-danger">Buscar y Eliminar</button>
+            </div>
+        </form>
+
+        <!-- Contenedor para mostrar los datos del alumno encontrado (inicialmente oculto) -->
+        <div id="datos-alumno" style="margin-top: 20px; display: none;"></div>
+
+        <!-- Contenedor para mostrar mensajes de éxito o error -->
+        <div id="mensaje-eliminar" class="mensaje"></div>
+    </div>
+
+    <!-- Script JavaScript para manejar la validación y lógica del formulario -->
+    <script src="../Validaciones_Alumnos/Alumno_Borrar_Val.js"></script>
+</body>
+</html>

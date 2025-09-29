@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Calificaciones</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Estilos/estilo_cal_aumno.css">
+    <style>
+        /* Estilos adicionales para la tabla */
+        .tabla-calificaciones {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .tabla-calificaciones th, .tabla-calificaciones td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .tabla-calificaciones th {
+            background-color: #f2f2f2;
+        }
+        
+        .tabla-calificaciones tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <div class="logo">
+            <h2>Gestor de Calificaciones</h2>
+        </div>
+        
+        <div class="menu-item active" data-form="consultar">
+            <i class="fas fa-search"></i> Consultar Calificación
+        </div>
+        
+        <div class="menu-item" id="btn-inicio">
+            <i class="fas fa-home"></i> Menú Principal
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="contenido-principal">
+        <!-- Formulario de Consulta -->
+        <div id="form-consultar" class="contenedor-formulario active">
+            <h2>Consulta de Calificaciones</h2>
+            
+            <div class="campo">
+                <label for="numero_de_control">Número de Control del Estudiante:</label>
+                <input type="text" id="numero_de_control" name="numero_de_control" placeholder="Ingrese el número de control" required>
+            </div>
+            
+            <button class="btn btn-primary" onclick="buscarCalificacion()">
+                <i class="fas fa-search"></i> Buscar Calificación
+            </button>
+
+            <div id="info-calificacion" class="info-calificacion" style="display: none;">
+                <div class="info-item">
+                    <span class="info-label">Estudiante:</span>
+                    <span class="info-value" id="info-estudiante">N/A</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Materias:</span>
+                    <span class="info-value" id="info-materia">N/A</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Calificaciones:</span>
+                    <span class="info-value" id="info-calificacion-valor">N/A</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Profesor(es):</span>
+                    <span class="info-value" id="info-profesor">N/A</span>
+                </div>
+            </div>
+            
+            <div id="mensaje" class="mensaje"></div>
+        </div>
+    </div>
+
+    <script src="../validaciones/val_calif_alumnos.js"></script>
+</body>
+</html>
