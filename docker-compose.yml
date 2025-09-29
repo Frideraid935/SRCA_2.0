@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: srca_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"   # tu contraseña de root
+      MYSQL_DATABASE: "srca"        # nombre de la base
+      MYSQL_USER: "root"            # usuario
+      MYSQL_PASSWORD: "1234"        # contraseña del usuario
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/Srca_Data_Base.sql:/docker-entrypoint-initdb.d/Srca_Data_Base.sql:ro
+
+  web:
+    build: .
+    container_name: srca_web
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: 1234
+      DB_NAME: srca
+    volumes:
+      - ./app:/var/www/html
+
+volumes:
+  db_data:
