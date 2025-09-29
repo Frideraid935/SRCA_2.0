@@ -1,4 +1,7 @@
 <?php
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+
 // Mostrar errores para desarrollo
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -8,7 +11,7 @@ error_reporting(E_ALL);
 header('Content-Type: application/json');
 
 // Conexión a la base de datos usando variables de entorno (para Docker)
-$servername = getenv('DB_HOST') ?: 'localhost';
+$servername = getenv('DB_HOST') ?: 'srca_db';
 $username   = getenv('DB_USER') ?: 'root';
 $password   = getenv('DB_PASS') ?: '1234';
 $dbname     = getenv('DB_NAME') ?: 'srca';

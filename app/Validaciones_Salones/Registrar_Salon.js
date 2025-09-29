@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const datos = { id, nombre, capacidad, profesor_id: profesorId };
 
         // Consumir API REST
-        fetch("http://localhost:8080/api_salones.php", {
+        fetch("http://localhost:8080/Controlador_Salon/api_salones.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(datos)
