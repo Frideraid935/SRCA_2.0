@@ -3,7 +3,7 @@ FROM php:8.2-apache
 # Copiar tu aplicación al contenedor
 COPY ./app /var/www/html
 
-# Instalar extensiones PHP si necesitas
+# Instalar extensiones PHP necesarias
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # Configuración de Apache para evitar Forbidden
@@ -14,7 +14,11 @@ RUN echo '<Directory /var/www/html>\n\
 </Directory>' > /etc/apache2/conf-available/custom.conf && \
     a2enconf custom
 
-# Habilitar mod_rewrite si lo necesitas
+# Habilitar mod_rewrite (útil para URLs amigables)
 RUN a2enmod rewrite
 
-EXPOSE 8080
+# Puerto correcto
+EXPOSE 80
+
+# Iniciar Apache
+CMD ["apache2-foreground"]

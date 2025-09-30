@@ -40,6 +40,7 @@ function guardarProfesor() {
         numero_de_control: numeroControl,
         nombre: nombre,
         especialidad: especialidad
+        
     };
 
     // Enviar al servidor usando fetch API
