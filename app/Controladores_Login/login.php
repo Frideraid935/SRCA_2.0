@@ -7,15 +7,21 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// ===== CONEXIÓN A RAILWAY =====
-$servername = getenv('MYSQLHOST');
-$username   = getenv('MYSQLUSER');
-$password   = getenv('MYSQLPASSWORD');
-$dbname     = getenv('MYSQLDATABASE');
-$port       = getenv('MYSQLPORT') ?: 3306;
+// ===== VARIABLES DE ENTORNO RAILWAY =====
+$servername = getenv('MYSQLHOST');       // host de Railway
+$username   = getenv('MYSQLUSER');       // usuario
+$password   = getenv('MYSQLPASSWORD');   // contraseña
+$dbname     = getenv('MYSQLDATABASE');   // base de datos
+$port       = getenv('MYSQLPORT') ?: 3306; // puerto, por defecto 3306
 
+// ===== DEBUG VARIABLES =====
+error_log("Railway MYSQLHOST=$servername");
+error_log("Railway MYSQLUSER=$username");
+error_log("Railway MYSQLDATABASE=$dbname");
+error_log("Railway MYSQLPORT=$port");
+
+// ===== CONEXIÓN TCP A RAILWAY =====
 try {
-    // Conexión TCP explícita usando host y puerto de Railway
     $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname;charset=utf8", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     error_log("Conectado a Railway correctamente.");
