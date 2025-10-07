@@ -7,32 +7,48 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// ===== DETECTAR ENTORNO =====
-$isRailway = getenv('MYSQLHOST') !== false; // Si existe MYSQLHOST, estamos en Railway
+// ===== CONFIGURACIÓN DE CONEXIÓN =====
+function obtenerConexion() {
+    $conn = null;
 
-if ($isRailway) {
-    // 🌐 Configuración para Railway
-    $servername = getenv('MYSQLHOST');
-    $username   = getenv('MYSQLUSER');
-    $password   = getenv('MYSQLPASSWORD');
-    $dbname     = getenv('MYSQLDATABASE');
-    $port       = getenv('MYSQLPORT') ?: 3306;
-} else {
-    // 🐳 Configuración para Docker local
-    $servername = getenv('DB_HOST') ?: 'srca_db';
+    // 1️⃣ Intentar Railway
+    $railwayHost = getenv('MYSQLHOST');
+    if ($railwayHost) {
+        $servername = $railwayHost;
+        $username   = getenv('MYSQLUSER');
+        $password   = getenv('MYSQLPASSWORD');
+        $dbname     = getenv('MYSQLDATABASE');
+        $port       = getenv('MYSQLPORT') ?: 3306;
+
+        try {
+            $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            error_log("Conectado a Railway correctamente.");
+            return $conn;
+        } catch (PDOException $e) {
+            error_log("No se pudo conectar a Railway: " . $e->getMessage());
+            $conn = null; // fallback
+        }
+    }
+
+    // 2️⃣ Intentar Docker / Local
+    $servername = getenv('DB_HOST') ?: 'localhost';
     $username   = getenv('DB_USER') ?: 'root';
     $password   = getenv('DB_PASS') ?: '1234';
     $dbname     = getenv('DB_NAME') ?: 'srca';
     $port       = getenv('DB_PORT') ?: 3306;
+
+    try {
+        $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        error_log("Conectado a Docker/local correctamente.");
+        return $conn;
+    } catch (PDOException $e) {
+        die("No se pudo conectar a ninguna base de datos: " . $e->getMessage());
+    }
 }
 
-// ===== CONEXIÓN A LA BASE DE DATOS =====
-try {
-    $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    die("Error de conexión: " . $e->getMessage());
-}
+$conn = obtenerConexion();
 
 // ===== PROCESAR LOGIN =====
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -41,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     error_log("Intento de login: Usuario: $usuario");
 
-    // Función para verificar login
     function verificarLogin($conn, $tabla, $usuario, $contrasena, $campos) {
         $sql = "SELECT * FROM $tabla WHERE {$campos[0]} = :usuario";
         if ($tabla != 'administradores') {
@@ -53,10 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bindParam(':contrasena', $contrasena);
         }
         $stmt->execute();
-        if ($stmt->rowCount() == 1) {
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        }
-        return false;
+        return $stmt->rowCount() == 1 ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
     }
 
     // Administrador
