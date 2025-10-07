@@ -6,35 +6,46 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Indicar que la respuesta será JSON
-header('Content-Type: application/json');
+// ===== DETECTAR ENTORNO =====
+$isRailway = getenv('MYSQLHOST') !== false; // Si existe MYSQLHOST, estamos en Railway
 
-// Parámetros de conexión a la base de datos dockerizada
-$servername = getenv('DB_HOST') ?: 'srca_db';
-$username   = getenv('DB_USER') ?: 'root';
-$password   = getenv('DB_PASS') ?: '1234';
-$dbname     = getenv('DB_NAME') ?: 'srca';
+if ($isRailway) {
+    // 🌐 Configuración para Railway
+    $servername = getenv('MYSQLHOST');
+    $username   = getenv('MYSQLUSER');
+    $password   = getenv('MYSQLPASSWORD');
+    $dbname     = getenv('MYSQLDATABASE');
+    $port       = getenv('MYSQLPORT') ?: 3306;
+} else {
+    // 🐳 Configuración para Docker local
+    $servername = getenv('DB_HOST') ?: 'srca_db';
+    $username   = getenv('DB_USER') ?: 'root';
+    $password   = getenv('DB_PASS') ?: '1234';
+    $dbname     = getenv('DB_NAME') ?: 'srca';
+    $port       = getenv('DB_PORT') ?: 3306;
+}
 
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+// ===== CREAR CONEXIÓN =====
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
 
-// Verificar conexión
+// ===== VERIFICAR CONEXIÓN =====
 if ($conn->connect_error) {
     echo json_encode([
         'status' => 'error',
-        'message' => 'Error de conexión: ' . $conn->connect_error
+        'message' => 'Error de conexión: ' . $conn->connect_error,
+        'host' => $servername
     ]);
     exit;
 }
 
-// Leer datos JSON enviados desde el cliente
+// ===== LECTURA DEL JSON =====
 $data = json_decode(file_get_contents("php://input"), true);
 
 $numeroControl = $data['numero_de_control'] ?? '';
 $nombre = $data['nombre'] ?? '';
 $especialidad = $data['especialidad'] ?? '';
 
-// Validación básica
+// ===== VALIDACIÓN BÁSICA =====
 if (empty($numeroControl) || empty($nombre) || empty($especialidad)) {
     echo json_encode([
         'status' => 'error',
@@ -43,7 +54,7 @@ if (empty($numeroControl) || empty($nombre) || empty($especialidad)) {
     exit;
 }
 
-// Verificar si ya existe el profesor
+// ===== VERIFICAR SI YA EXISTE =====
 $stmtCheck = $conn->prepare("SELECT 1 FROM profesores WHERE numero_de_control = ?");
 $stmtCheck->bind_param("s", $numeroControl);
 $stmtCheck->execute();
@@ -60,7 +71,7 @@ if ($stmtCheck->num_rows > 0) {
 }
 $stmtCheck->close();
 
-// Insertar nuevo profesor
+// ===== INSERTAR NUEVO PROFESOR =====
 $stmt = $conn->prepare("INSERT INTO profesores (numero_de_control, nombre, especialidad) VALUES (?, ?, ?)");
 $stmt->bind_param("sss", $numeroControl, $nombre, $especialidad);
 
