@@ -7,48 +7,21 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// ===== CONFIGURACIÓN DE CONEXIÓN =====
-function obtenerConexion() {
-    $conn = null;
+// ===== CONEXIÓN A RAILWAY =====
+$servername = getenv('MYSQLHOST');
+$username   = getenv('MYSQLUSER');
+$password   = getenv('MYSQLPASSWORD');
+$dbname     = getenv('MYSQLDATABASE');
+$port       = getenv('MYSQLPORT') ?: 3306;
 
-    // 1️⃣ Intentar Railway
-    $railwayHost = getenv('MYSQLHOST');
-    if ($railwayHost) {
-        $servername = $railwayHost;
-        $username   = getenv('MYSQLUSER');
-        $password   = getenv('MYSQLPASSWORD');
-        $dbname     = getenv('MYSQLDATABASE');
-        $port       = getenv('MYSQLPORT') ?: 3306;
-
-        try {
-            $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname;charset=utf8", $username, $password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            error_log("Conectado a Railway correctamente.");
-            return $conn;
-        } catch (PDOException $e) {
-            error_log("No se pudo conectar a Railway: " . $e->getMessage());
-            $conn = null; // fallback
-        }
-    }
-
-    // 2️⃣ Intentar Docker / Local
-    $servername = getenv('DB_HOST') ?: '127.0.0.1'; // 🚨 TCP obligatorio
-    $username   = getenv('DB_USER') ?: 'root';
-    $password   = getenv('DB_PASS') ?: '1234';
-    $dbname     = getenv('DB_NAME') ?: 'srca';
-    $port       = getenv('DB_PORT') ?: 3306;
-
-    try {
-        $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname;charset=utf8", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        error_log("Conectado a Docker/local correctamente.");
-        return $conn;
-    } catch (PDOException $e) {
-        die("No se pudo conectar a ninguna base de datos: " . $e->getMessage());
-    }
+try {
+    // Conexión TCP explícita usando host y puerto de Railway
+    $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname;charset=utf8", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    error_log("Conectado a Railway correctamente.");
+} catch (PDOException $e) {
+    die("Error de conexión a Railway: " . $e->getMessage());
 }
-
-$conn = obtenerConexion();
 
 // ===== PROCESAR LOGIN =====
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
