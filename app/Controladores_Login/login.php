@@ -21,7 +21,7 @@ function obtenerConexion() {
         $port       = getenv('MYSQLPORT') ?: 3306;
 
         try {
-            $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+            $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname;charset=utf8", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             error_log("Conectado a Railway correctamente.");
             return $conn;
@@ -32,14 +32,14 @@ function obtenerConexion() {
     }
 
     // 2️⃣ Intentar Docker / Local
-    $servername = getenv('DB_HOST') ?: 'localhost';
+    $servername = getenv('DB_HOST') ?: '127.0.0.1'; // 🚨 TCP obligatorio
     $username   = getenv('DB_USER') ?: 'root';
     $password   = getenv('DB_PASS') ?: '1234';
     $dbname     = getenv('DB_NAME') ?: 'srca';
     $port       = getenv('DB_PORT') ?: 3306;
 
     try {
-        $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+        $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname;charset=utf8", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         error_log("Conectado a Docker/local correctamente.");
         return $conn;
