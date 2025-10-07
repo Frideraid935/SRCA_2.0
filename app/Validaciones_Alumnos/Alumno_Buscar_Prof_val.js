@@ -53,6 +53,6 @@ document.getElementById('formulario-buscar').addEventListener('submit', function
 });
 
 // Redirigir al menú principal
-document.getElementById('btn-inicio').addEventListener('click', function() {
-    window.location.href = "/Menu_inicio/inicio_profesor.html";
-});
+//document.getElementById('btn-inicio').addEventListener('click', function() {
+  //  window.location.href = "../Menu_inicio/inicio_profesor.html";
+//});
