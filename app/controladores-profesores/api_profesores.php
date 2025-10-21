@@ -7,48 +7,42 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // ===============================
-// DETECTAR ENTORNO (RAILWAY O DOCKER)
+// CONFIGURACIÓN DE CONEXIÓN A RAILWAY
 // ===============================
-$env = getenv('RAILWAY_ENVIRONMENT') ? 'railway' : 'docker';
-
-if ($env === 'railway') {
-    // 🌐 Configuración Railway
-    $host     = getenv('MYSQLHOST');
-    $user     = getenv('MYSQLUSER');
-    $password = getenv('MYSQLPASSWORD');
-    $dbname   = getenv('MYSQLDATABASE');
-    $port     = getenv('MYSQLPORT') ?: 3306;
-} else {
-    // 🐳 Configuración Docker local
-    $host     = getenv('DB_HOST') ?: 'srca_db';
-    $user     = getenv('DB_USER') ?: 'root';
-    $password = getenv('DB_PASS') ?: '1234';
-    $dbname   = getenv('DB_NAME') ?: 'srca';
-    $port     = getenv('DB_PORT') ?: 3306;
-}
+$host     = getenv('MYSQLHOST');
+$user     = getenv('MYSQLUSER');
+$password = getenv('MYSQLPASSWORD');
+$dbname   = getenv('MYSQLDATABASE');
+$port     = getenv('MYSQLPORT') ?: 3306;
 
 // ===============================
-// CREAR CONEXIÓN
+// VALIDAR VARIABLES DE ENTORNO
 // ===============================
-$conn = @new mysqli($host, $user, $password, $dbname, $port);
-
-// ===============================
-// VERIFICAR CONEXIÓN
-// ===============================
-if ($conn->connect_error) {
+if (empty($host) || empty($user) || empty($password) || empty($dbname)) {
     echo json_encode([
         'status' => 'error',
-        'message' => ' Error de conexión con la base de datos',
-        'detalles' => $conn->connect_error,
-        'host' => $host,
-        'puerto' => $port,
-        'entorno' => $env
+        'message' => 'Faltan variables de entorno de Railway. Verifica MYSQLHOST, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE y MYSQLPORT.'
     ]);
     exit;
 }
 
 // ===============================
-// LEER JSON DE ENTRADA
+// CONEXIÓN A MYSQL (RAILWAY)
+// ===============================
+$conn = @new mysqli($host, $user, $password, $dbname, $port);
+
+if ($conn->connect_error) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Error de conexión con Railway: ' . $conn->connect_error,
+        'host' => $host,
+        'port' => $port
+    ]);
+    exit;
+}
+
+// ===============================
+// LECTURA DE DATOS JSON
 // ===============================
 $data = json_decode(file_get_contents("php://input"), true);
 
@@ -57,18 +51,18 @@ $nombre = $data['nombre'] ?? '';
 $especialidad = $data['especialidad'] ?? '';
 
 // ===============================
-// VALIDAR CAMPOS
+// VALIDACIÓN DE CAMPOS
 // ===============================
 if (empty($numeroControl) || empty($nombre) || empty($especialidad)) {
     echo json_encode([
         'status' => 'error',
-        'message' => ' Todos los campos son obligatorios'
+        'message' => 'Todos los campos son obligatorios'
     ]);
     exit;
 }
 
 // ===============================
-// VERIFICAR SI YA EXISTE
+// VERIFICAR SI YA EXISTE EL PROFESOR
 // ===============================
 $stmtCheck = $conn->prepare("SELECT 1 FROM profesores WHERE numero_de_control = ?");
 $stmtCheck->bind_param("s", $numeroControl);
@@ -78,7 +72,7 @@ $stmtCheck->store_result();
 if ($stmtCheck->num_rows > 0) {
     echo json_encode([
         'status' => 'error',
-        'message' => ' Ya existe un profesor con este número de control'
+        'message' => 'Ya existe un profesor con este número de control'
     ]);
     $stmtCheck->close();
     $conn->close();
@@ -100,8 +94,7 @@ if ($stmt->execute()) {
 } else {
     echo json_encode([
         'status' => 'error',
-        'message' => 'Error al registrar profesor',
-        'detalle' => $stmt->error
+        'message' => 'Error al registrar profesor: ' . $stmt->error
     ]);
 }
 
