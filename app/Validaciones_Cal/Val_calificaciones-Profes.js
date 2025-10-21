@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         btnBuscar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Buscando...';
 
         try {
-            const response = await fetch(`../controladores-calificaciones/buscar_calif_alum.php?numero_control=${numeroControl}`);
+            const response = await fetch(`../Controladores_Cal/obtenerCalificacionesPorControl.php?numero_control=${numeroControl}`);
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
                 const text = await response.text();
