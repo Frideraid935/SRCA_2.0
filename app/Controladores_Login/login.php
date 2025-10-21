@@ -13,7 +13,7 @@ error_reporting(E_ALL);
 $host     = getenv('MYSQLHOST');
 $user     = getenv('MYSQLUSER');
 $password = getenv('MYSQLPASSWORD');
-$dbname   = getenv('MYSQL_DATABASE'); // ⚠️ Railway la define con guion bajo
+$dbname   = getenv('MYSQL_DATABASE'); 
 $port     = getenv('MYSQLPORT') ?: 3306;
 
 // ===== DEPURACIÓN OPCIONAL =====
@@ -24,7 +24,7 @@ error_log("MYSQLPORT=$port");
 
 // ===== VALIDAR VARIABLES =====
 if (empty($host) || empty($user) || empty($password) || empty($dbname)) {
-    die("❌ Error: faltan variables de entorno de Railway.
+    die("Error: faltan variables de entorno de Railway.
     <br>Asegúrate de haber configurado:<br>
     MYSQLHOST, MYSQLUSER, MYSQLPASSWORD, MYSQL_DATABASE y MYSQLPORT.");
 }
@@ -34,9 +34,9 @@ try {
     $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
     $conn = new PDO($dsn, $user, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    error_log("✅ Conexión a Railway exitosa");
+    error_log(" Conexión a Railway exitosa");
 } catch (PDOException $e) {
-    die("❌ Error de conexión a Railway: " . $e->getMessage());
+    die("Error de conexión a Railway: " . $e->getMessage());
 }
 
 // ===== PROCESAR FORMULARIO DE LOGIN =====

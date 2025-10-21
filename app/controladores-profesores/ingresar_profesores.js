@@ -44,7 +44,7 @@ function guardarProfesor() {
     };
 
     // Enviar al servidor usando fetch API
-    fetch('http://localhost:8080/controladores-profesores/api_profesores.php', {
+    fetch('../controladores-profesores/api_profesores.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos)
