@@ -269,6 +269,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // 🔹 BOTÓN DE INICIO
     // ================================
     document.getElementById('btn-inicio')?.addEventListener('click', function () {
-        window.location.href = '../Menu_Inicio/inicio_Admin.html';
+        window.location.href = '../Menu_Inicio/inicio_profesor.html';
     });
 });
