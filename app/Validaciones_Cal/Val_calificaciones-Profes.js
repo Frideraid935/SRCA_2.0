@@ -5,28 +5,57 @@ document.addEventListener('DOMContentLoaded', function () {
     let calificacionSeleccionada = null;
 
     // ================================
-    // 🔹 FORMULARIO: INGRESAR CALIFICACIÓN
+    // 🔹 MENÚ LATERAL: Cambiar formulario visible
+    // ================================
+    const menuItems = document.querySelectorAll('.menu-item');
+    const formularios = document.querySelectorAll('.contenedor-formulario');
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', function () {
+            const formToShow = this.getAttribute('data-form');
+
+            // Activar/desactivar item del menú
+            menuItems.forEach(m => m.classList.remove('active'));
+            this.classList.add('active');
+
+            // Mostrar solo el formulario correspondiente
+            formularios.forEach(f => f.style.display = 'none');
+            const formElement = document.getElementById(`form-${formToShow}`);
+            if (formElement) formElement.style.display = 'block';
+
+            // Limpiar resultados si se va a actualizar
+            if (formToShow === 'actualizar') {
+                document.getElementById('resultados-busqueda').style.display = 'none';
+                document.getElementById('formulario-actualizar').style.display = 'none';
+                document.getElementById('numero_control_buscar').value = '';
+                calificacionesAlumno = null;
+                calificacionSeleccionada = null;
+            }
+        });
+    });
+
+    // ================================
+    // 🔹 ENVÍO DE FORMULARIO: INGRESAR CALIFICACIÓN
     // ================================
     const formIngresar = document.getElementById('formulario-ingresarP');
     if (formIngresar) {
         formIngresar.addEventListener('submit', async function (e) {
             e.preventDefault();
-
-            const submitBtn = document.querySelector('#formulario-ingresarP button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
+            const submitBtn = formIngresar.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
             submitBtn.disabled = true;
 
             try {
                 const numeroControl = document.getElementById('numero_de_control_ingresar').value.trim();
-                if (numeroControl.length !== 8) throw new Error('El número de control debe tener exactamente 8 caracteres');
-
                 const calificacion = parseFloat(document.getElementById('calificacion_ingresar').value);
-                if (isNaN(calificacion) || calificacion < 0 || calificacion > 10) throw new Error('La calificación debe ser un número entre 0 y 10');
+
+                if (numeroControl.length !== 8) throw new Error('El número de control debe tener exactamente 8 caracteres.');
+                if (isNaN(calificacion) || calificacion < 0 || calificacion > 10) throw new Error('La calificación debe ser un número entre 0 y 10.');
 
                 const formData = new FormData(formIngresar);
                 const jsonData = {};
-                formData.forEach((value, key) => { jsonData[key] = value; });
+                formData.forEach((value, key) => jsonData[key] = value);
 
                 const response = await fetch('../Controladores_Cal/guardarCal.php', {
                     method: 'POST',
@@ -37,23 +66,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 const contentType = response.headers.get('content-type');
                 if (!contentType || !contentType.includes('application/json')) {
                     const text = await response.text();
-                    throw new Error(text || 'El servidor respondió con un formato inesperado');
+                    throw new Error(text || 'El servidor respondió con un formato inesperado.');
                 }
 
                 const data = await response.json();
-
                 if (data.status === 'success') {
                     mostrarMensaje(data.message, 'success', 'mensaje-ingresar');
                     formIngresar.reset();
-                    console.log('ID de calificación insertada:', data.insert_id);
+                    console.log('✅ Calificación insertada con ID:', data.insert_id);
                 } else {
-                    throw new Error(data.message || 'Error al procesar la solicitud');
+                    const mensajeError = data.errors ? data.errors.join('\n') : data.message;
+                    throw new Error(mensajeError || 'Error al registrar la calificación.');
                 }
             } catch (error) {
-                console.error('Error:', error);
+                console.error('❌ Error:', error);
                 mostrarMensaje(error.message, 'error', 'mensaje-ingresar');
             } finally {
-                submitBtn.innerHTML = originalBtnText;
+                submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             }
         });
@@ -83,25 +112,24 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const data = await response.json();
-
             if (!response.ok || data.status === 'error' || data.status === 'info') {
                 throw new Error(data.message || 'Error al buscar calificaciones');
             }
 
             calificacionesAlumno = data.data;
 
+            // Llenar campos generales
             document.getElementById('alumno_nombre_actualizar').value = calificacionesAlumno.alumno_nombre;
             document.getElementById('numero_de_control_actualizar').value = calificacionesAlumno.numero_control;
 
+            // Llenar tabla
             llenarTablaCalificaciones(calificacionesAlumno.calificaciones);
 
             document.getElementById('resultados-busqueda').style.display = 'block';
             mostrarMensaje(`${calificacionesAlumno.calificaciones.length} calificaciones encontradas`, 'success', 'mensaje-actualizar');
-
         } catch (error) {
             console.error('Error al buscar calificaciones:', error);
-            const errorMessage = error.message.includes('Unexpected token') ? 'Error en el formato de respuesta del servidor' : error.message;
-            mostrarMensaje(errorMessage, 'error', 'mensaje-actualizar');
+            mostrarMensaje(error.message, 'error', 'mensaje-actualizar');
             document.getElementById('resultados-busqueda').style.display = 'none';
             document.getElementById('formulario-actualizar').style.display = 'none';
         } finally {
@@ -117,15 +145,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const cuerpoTabla = document.getElementById('cuerpo-tabla');
         cuerpoTabla.innerHTML = '';
 
-        calificaciones.forEach(calificacion => {
+        calificaciones.forEach(cal => {
             const fila = document.createElement('tr');
             fila.innerHTML = `
-                <td>${calificacion.id}</td>
-                <td>${calificacion.materia_nombre || 'ID: ' + calificacion.materia_id}</td>
-                <td>${calificacion.calificacion}</td>
-                <td>${calificacion.profesor_nombre || 'ID: ' + calificacion.profesor_id}</td>
+                <td>${cal.id}</td>
+                <td>${cal.materia_nombre || 'ID: ' + cal.materia_id}</td>
+                <td>${cal.calificacion}</td>
+                <td>${cal.profesor_nombre || 'ID: ' + cal.profesor_id}</td>
                 <td>
-                    <button class="btn-editar" data-id="${calificacion.id}">
+                    <button class="btn-editar" data-id="${cal.id}">
                         <i class="fas fa-edit"></i> Editar
                     </button>
                 </td>
@@ -133,10 +161,11 @@ document.addEventListener('DOMContentLoaded', function () {
             cuerpoTabla.appendChild(fila);
         });
 
+        // Botones editar
         document.querySelectorAll('.btn-editar').forEach(btn => {
             btn.addEventListener('click', function () {
-                const idCalificacion = this.getAttribute('data-id');
-                seleccionarCalificacion(idCalificacion);
+                const idCal = this.getAttribute('data-id');
+                seleccionarCalificacion(idCal);
             });
         });
     }
@@ -165,33 +194,63 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ================================
-    // 🔹 BOTÓN DE ACTUALIZAR CALIFICACIÓN
+    // 🔹 BOTÓN ACTUALIZAR CALIFICACIÓN
     // ================================
-    const btnActualizar = document.getElementById('btn-actualizar');
-    if (btnActualizar) {
-        btnActualizar.addEventListener('click', async function () {
-            if (!calificacionSeleccionada) {
-                mostrarMensaje('Seleccione una calificación para actualizar', 'error', 'mensaje-actualizar');
-                return;
+    document.getElementById('btn-actualizar')?.addEventListener('click', async function () {
+        if (!calificacionSeleccionada) {
+            mostrarMensaje('Seleccione una calificación para actualizar', 'error', 'mensaje-actualizar');
+            return;
+        }
+
+        const submitBtn = this;
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
+        submitBtn.disabled = true;
+
+        try {
+            const calificacionNueva = parseFloat(document.getElementById('calificacion_actualizar').value);
+            if (isNaN(calificacionNueva) || calificacionNueva < 0 || calificacionNueva > 10) {
+                throw new Error('La calificación debe ser un número entre 0 y 10.');
             }
-            const formActualizar = document.getElementById('formulario-actualizar');
-            await manejarFormulario(formActualizar, '../Controladores_Cal/actualizarCal.php', 'actualizar');
-        });
-    }
+
+            const jsonData = {
+                id: calificacionSeleccionada.id,
+                calificacion: calificacionNueva
+            };
+
+            const response = await fetch('../Controladores_Cal/actualizarCal.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(jsonData)
+            });
+
+            const data = await response.json();
+            if (data.status === 'success') {
+                mostrarMensaje(data.message, 'success', 'mensaje-actualizar');
+                document.getElementById('formulario-actualizar').style.display = 'none';
+                document.getElementById('resultados-busqueda').style.display = 'none';
+            } else {
+                throw new Error(data.message || 'Error al actualizar la calificación.');
+            }
+        } catch (error) {
+            console.error(error);
+            mostrarMensaje(error.message, 'error', 'mensaje-actualizar');
+        } finally {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
 
     // ================================
-    // 🔹 BOTÓN DE CANCELAR ACTUALIZACIÓN
+    // 🔹 BOTÓN CANCELAR ACTUALIZACIÓN
     // ================================
-    const btnCancelar = document.getElementById('btn-cancelar');
-    if (btnCancelar) {
-        btnCancelar.addEventListener('click', function () {
-            document.getElementById('formulario-actualizar').style.display = 'none';
-            mostrarMensaje('Actualización cancelada', 'info', 'mensaje-actualizar');
-        });
-    }
+    document.getElementById('btn-cancelar')?.addEventListener('click', function () {
+        document.getElementById('formulario-actualizar').style.display = 'none';
+        mostrarMensaje('Actualización cancelada', 'info', 'mensaje-actualizar');
+    });
 
     // ================================
-    // 🔹 FUNCION PARA MOSTRAR MENSAJES
+    // 🔹 FUNCIÓN PARA MOSTRAR MENSAJES
     // ================================
     function mostrarMensaje(mensaje, tipo, id) {
         const mensajeDiv = document.getElementById(id);
@@ -205,4 +264,11 @@ document.addEventListener('DOMContentLoaded', function () {
             mensajeDiv.className = 'mensaje';
         }, 5000);
     }
+
+    // ================================
+    // 🔹 BOTÓN DE INICIO
+    // ================================
+    document.getElementById('btn-inicio')?.addEventListener('click', function () {
+        window.location.href = '../Menu_inicio/inicio_Admin.html';
+    });
 });
