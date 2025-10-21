@@ -66,7 +66,7 @@ function actualizarCalificacion() {
     mostrarMensaje("Calificación actualizada exitosamente.", true, 'mensaje-actualizar');
 }
 document.getElementById("btn-inicio").addEventListener("click", function() {
-    window.location.href = "../Menu_inicio/inicio_Admin.html";
+    window.location.href = "../Menu_Inicio/inicio_Admin.html";
 });
 // Función para mostrar mensajes
 function mostrarMensaje(texto, esExito, elementoId) {
