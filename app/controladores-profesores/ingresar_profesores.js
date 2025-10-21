@@ -60,6 +60,6 @@ function guardarProfesor() {
     })
     .catch(error => {
         console.error("Error:", error);
-        mostrarMensaje("Error al conectar con el servidor", false, 'mensaje-ingresar');
+        mostrarMensaje("Error al conectar con elllll servidor", false, 'mensaje-ingresar');
     });
 }
