@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const jsonData = {};
                 formData.forEach((value, key) => jsonData[key] = value);
 
-                const response = await fetch('../Controladores_Cal/guardarCal.php', {
+                const response = await fetch('../controladores-calificaciones/guardarCal.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(jsonData)
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 calificacion: calificacionNueva
             };
 
-            const response = await fetch('../Controladores_Cal/actualizarCal.php', {
+            const response = await fetch('../controladores-calificaciones/actualizar.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(jsonData)
