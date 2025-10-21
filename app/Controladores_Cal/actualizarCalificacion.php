@@ -1,15 +1,29 @@
 <?php
 header('Content-Type: application/json');
 
-// Configuración de la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "1234";
-$dbname = "srca";
+// Validar variables de entorno de Railway
+$required_env = ['MYSQLHOST', 'MYSQLUSER', 'MYSQLPASSWORD', 'MYSQLDATABASE', 'MYSQLPORT'];
+foreach ($required_env as $env) {
+    if (empty(getenv($env))) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Faltan variables de entorno de Railway. Asegúrate de haber configurado MYSQLHOST, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE y MYSQLPORT."
+        ]);
+        exit;
+    }
+}
+
+// Configuración desde variables de entorno
+$servername = getenv('MYSQLHOST');
+$username   = getenv('MYSQLUSER');
+$password   = getenv('MYSQLPASSWORD');
+$dbname     = getenv('MYSQLDATABASE');
+$port       = getenv('MYSQLPORT');
 
 // Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
 
+// Verificar conexión
 if ($conn->connect_error) {
     echo json_encode(["status" => "error", "message" => "Error de conexión: " . $conn->connect_error]);
     exit;
@@ -36,7 +50,7 @@ if ($data === null) {
     exit;
 }
 
-// Validar datos requeridos
+// Validar campos requeridos
 $requiredFields = ['id', 'alumno_nombre', 'numero_de_control', 'materia_id', 'calificacion', 'profesor_id'];
 foreach ($requiredFields as $field) {
     if (!isset($data[$field])) {
@@ -45,7 +59,7 @@ foreach ($requiredFields as $field) {
     }
 }
 
-// Asignar y validar datos
+// Asignar valores
 $id = (int)$data['id'];
 $alumno_nombre = trim($data['alumno_nombre']);
 $numero_de_control = trim($data['numero_de_control']);
@@ -53,7 +67,7 @@ $materia_id = (int)$data['materia_id'];
 $calificacion = (float)$data['calificacion'];
 $profesor_id = trim($data['profesor_id']);
 
-// Validaciones
+// Validaciones básicas
 if (empty($alumno_nombre) || empty($numero_de_control) || empty($profesor_id)) {
     echo json_encode(["status" => "error", "message" => "Todos los campos son requeridos"]);
     exit;
@@ -81,7 +95,7 @@ foreach ($checkQueries as $key => $query) {
     $stmt->bind_param($query[1], $query[2]);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($result->num_rows === 0) {
         echo json_encode(["status" => "error", "message" => ucfirst($key) . " no encontrado"]);
         $stmt->close();
@@ -91,7 +105,7 @@ foreach ($checkQueries as $key => $query) {
     $stmt->close();
 }
 
-// Actualizar la calificación
+// Actualizar calificación
 $sql = "UPDATE calificaciones SET 
         alumno_nombre = ?,
         numero_de_control = ?,
