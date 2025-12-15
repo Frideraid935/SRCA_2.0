@@ -6,6 +6,11 @@ COPY ./app /var/www/html
 # Instalar extensiones PHP necesarias
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
+RUN a2dismod mpm_prefork || true
+RUN a2dismod mpm_worker || true
+RUN a2dismod mpm_event || true
+RUN a2enmod mpm_event
+
 # Configuración de Apache para evitar Forbidden
 RUN echo '<Directory /var/www/html>\n\
     Options Indexes FollowSymLinks\n\
